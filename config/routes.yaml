@@ -1,3 +1,9 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+convert:
+#    type: rest  # Required for ``RestYamlLoader`` to process imported routes
+#    prefix: /api
+    path: /api/v1/convert/{from}/{to}/{amount}
+    controller: App\Controller\API\ConvertController::convert

@@ -25,3 +25,17 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    GuzzleHttp\Client:
+        class: GuzzleHttp\Client
+
+    cbrParser:
+        class: App\Services\CbrParser
+
+    ecbParser:
+        class: App\Services\EcbParser
+
+    App\Commands\CurrencyImportCommand:
+        tags:
+            - {name: 'console.command', command: 'import:currency'}
+        arguments:
+            - '@ecbParser'
