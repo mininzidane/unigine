@@ -1,35 +1,34 @@
 # README #
 
-- composer i
-- migrations
-- parser switching in config
-- console command
-- tests
+## Pre-launch steps
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Install dependencies 
+```bash 
+composer install
+```
 
-### What is this repository for? ###
+### Configuration
+- make a copy of .env to .env.local and enter your db credentials to `DATABASE_URL`
+- create db and run migrations
+```bash
+php bin/console doctrine:migrations:migrate
+```
+- you can use any parser (ecb, cbr) you want by switching dependency in `config/services.yaml` for CurrencyImportCommand. cbr_parser is set by default
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Launching app
+- to import currencies use console command:
+```bash
+php bin/console import:currency
+```
+- REST API has the only end-point `/api/v1/convert/{from}/{to}/{amount}` where
+`from` and `to` are currency codes (e.g. USD), `amount` is a float value for converting
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+### Tests
+- run unit tests for parsers (run it on clear db)
+```bash
+vendor/bin/phpunit tests/Unit/
+```
+- run functional tests for API (be sure to run import command first)
+```bash
+vendor/bin/phpunit tests/Functional/
+```

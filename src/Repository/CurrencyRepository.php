@@ -49,7 +49,7 @@ class CurrencyRepository extends ServiceEntityRepository
      */
     public function getLastValue(string $code): ?Currency
     {
-        return $this
+        $query = $this
             ->createQueryBuilder('c')
             ->select('c')
             ->addSelect('v')
@@ -59,8 +59,8 @@ class CurrencyRepository extends ServiceEntityRepository
             ->orderBy('v.date', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult()
         ;
+        return $query->getOneOrNullResult();
     }
 
     // /**

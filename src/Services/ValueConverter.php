@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\DateValue;
 use App\Repository\CurrencyRepository;
 
 class ValueConverter
@@ -35,14 +36,16 @@ class ValueConverter
         $fromValue = $this->currencyRepository->getLastValue($fromCode);
         $toValue = $this->currencyRepository->getLastValue($toCode);
 
-        if ($fromValue === null || empty($fromValue->getValues())) {
+        /** @var DateValue $firstValueFrom */
+        if ($fromValue === null || ($firstValueFrom = $fromValue->getValues()->first()) === null) {
             throw new \Exception("No data for currency '{$fromCode}'");
         }
-        if ($toValue === null || empty($toValue->getValues())) {
+        /** @var DateValue $firstValueTo */
+        if ($toValue === null || ($firstValueTo = $toValue->getValues()->first()) === null) {
             throw new \Exception("No data for currency '{$toCode}'");
         }
 
-        $multiplier = $toValue->getValues()[0]->getValue() / $fromValue->getValues()[0]->getValue();
+        $multiplier = $firstValueTo->getValue() / $firstValueFrom->getValue();
         return \round($value * $multiplier, 5);
     }
 }

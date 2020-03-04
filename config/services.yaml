@@ -28,14 +28,16 @@ services:
     GuzzleHttp\Client:
         class: GuzzleHttp\Client
 
-    cbrParser:
+    cbr_parser:
         class: App\Services\CbrParser
+        public: true
 
-    ecbParser:
+    ecb_parser:
         class: App\Services\EcbParser
+        public: true
 
     App\Commands\CurrencyImportCommand:
         tags:
             - {name: 'console.command', command: 'import:currency'}
         arguments:
-            - '@ecbParser'
+            - '@cbr_parser'
