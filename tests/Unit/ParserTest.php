@@ -43,14 +43,14 @@ class ParserTest extends KernelTestCase
     public function testCbrParse(): void
     {
         $this->cbrParser->parse();
-        $this->assertEquals(ParserInterface::PARSER_TYPE_CBR, $this->cbrParser->getParserType());
-        $this->assertGreaterThan(0, $this->cbrParser->getImportedValuesCount());
+        self::assertEquals(ParserInterface::PARSER_TYPE_CBR, $this->cbrParser->getParserType());
+        self::assertGreaterThan(0, $this->cbrParser->getImportedValuesCount());
     }
 
     public function testEcbParse(): void
     {
         $this->ecbParser->parse();
-        $this->assertEquals(ParserInterface::PARSER_TYPE_ECB, $this->ecbParser->getParserType());
-        $this->assertGreaterThan(0, $this->ecbParser->getImportedValuesCount());
+        self::assertEquals(ParserInterface::PARSER_TYPE_ECB, $this->ecbParser->getParserType());
+        self::assertGreaterThan(0, $this->ecbParser->getImportedValuesCount());
     }
 }

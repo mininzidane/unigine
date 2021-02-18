@@ -9,15 +9,8 @@ use Symfony\Component\Validator\Validation;
 
 class CurrencyValidator
 {
-    /**
-     * @var array
-     */
-    private $errors = [];
+    private array $errors = [];
 
-    /**
-     * @param string $currency
-     * @return bool
-     */
     public function validate(string $currency): bool
     {
         $validator = Validation::createValidator();
@@ -36,9 +29,6 @@ class CurrencyValidator
         return $success;
     }
 
-    /**
-     * @return array
-     */
     public function getErrors(): array
     {
         return $this->errors;

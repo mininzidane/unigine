@@ -13,34 +13,12 @@ class EcbParser implements ParserInterface
 {
     private const URL = 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
 
-    /**
-     * @var int
-     */
-    private $importedValuesCount = 0;
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    private $client;
-    /**
-     * @var CurrencyRepository
-     */
-    private $currencyRepository;
-    /**
-     * @var DateValueRepository
-     */
-    private $dateValueRepository;
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private int $importedValuesCount = 0;
+    private \GuzzleHttp\Client $client;
+    private CurrencyRepository $currencyRepository;
+    private DateValueRepository $dateValueRepository;
+    private LoggerInterface $logger;
 
-    /**
-     * EcbParser constructor.
-     * @param \GuzzleHttp\Client $client
-     * @param CurrencyRepository $currencyRepository
-     * @param DateValueRepository $dateValueRepository
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         \GuzzleHttp\Client $client,
         CurrencyRepository $currencyRepository,

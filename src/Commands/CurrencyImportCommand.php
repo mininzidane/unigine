@@ -10,10 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CurrencyImportCommand extends Command
 {
-    /**
-     * @var ParserInterface
-     */
-    private $parser;
+    private ParserInterface $parser;
 
     protected function configure(): void
     {
@@ -24,10 +21,6 @@ class CurrencyImportCommand extends Command
         ;
     }
 
-    /**
-     * CurrencyImportCommand constructor.
-     * @param ParserInterface $parser
-     */
     public function __construct(ParserInterface $parser)
     {
         parent::__construct();
@@ -35,11 +28,6 @@ class CurrencyImportCommand extends Command
         $this->parser = $parser;
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Start currency import');

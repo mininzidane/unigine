@@ -12,32 +12,16 @@ use Psr\Log\LoggerInterface;
 class CbrParser implements ParserInterface
 {
     private const URL = 'https://www.cbr.ru/scripts/XML_daily.asp';
+    private const RUB_LABEL = 'Рубль';
+    private const CODE_EURO = 'EUR';
+    private const CODE_RUB = 'RUB';
 
-    private $client;
-    /**
-     * @var CurrencyRepository
-     */
-    private $currencyRepository;
-    /**
-     * @var DateValueRepository
-     */
-    private $dateValueRepository;
-    /**
-     * @var int
-     */
-    private $importedValuesCount = 0;
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private \GuzzleHttp\Client $client;
+    private CurrencyRepository $currencyRepository;
+    private DateValueRepository $dateValueRepository;
+    private int $importedValuesCount = 0;
+    private LoggerInterface $logger;
 
-    /**
-     * CbrParser constructor.
-     * @param \GuzzleHttp\Client $client
-     * @param CurrencyRepository $currencyRepository
-     * @param DateValueRepository $dateValueRepository
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         \GuzzleHttp\Client $client,
         CurrencyRepository $currencyRepository,
@@ -127,13 +111,13 @@ class CbrParser implements ParserInterface
             ];
         }
 
-        $rubleToEuroMultiplier = $data[self::CODE_EURO]['value'];
+        $rubleToEuroMultiplier = $data[static::CODE_EURO]['value'];
         $data = \array_map(function (array $row) use ($rubleToEuroMultiplier) {
             $row['value'] = \round($rubleToEuroMultiplier / $row['value'], 5);
             return $row;
         }, $data);
-        $data[self::CODE_RUB] = [
-            'name' => 'Рубль',
+        $data[static::CODE_RUB] = [
+            'name' => static::RUB_LABEL,
             'value' => $rubleToEuroMultiplier
         ];
 

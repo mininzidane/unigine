@@ -8,15 +8,8 @@ use App\Repository\CurrencyRepository;
 
 class ValueConverter
 {
-    /**
-     * @var CurrencyRepository
-     */
-    private $currencyRepository;
+    private CurrencyRepository $currencyRepository;
 
-    /**
-     * ValueConverter constructor.
-     * @param CurrencyRepository $currencyRepository
-     */
     public function __construct(
         CurrencyRepository $currencyRepository
     )
@@ -25,10 +18,6 @@ class ValueConverter
     }
 
     /**
-     * @param float $value
-     * @param string $fromCode
-     * @param string $toCode
-     * @return float
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function convert(float $value, string $fromCode, string $toCode): float
